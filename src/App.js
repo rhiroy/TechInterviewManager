@@ -9,20 +9,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSidebar: true,
+      showSidebar: false,
       applicantName: 'Johny Testtaker',
       interviewDate: moment(),
       script: {},
-      currentStep: 0,
+      currentStep: 1,
       lastStep: 0,
     };
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.setInterviewDate = this.setInterviewDate.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.changeStep = this.changeStep.bind(this);
   }
 
   componentWillMount() {
-    this.setState({ script });
+    console.log(script);
+    this.setState({ script, lastStep: Object.keys(script).length });
   }
 
   setInterviewDate(date) {
@@ -41,8 +43,19 @@ class App extends Component {
     }
   }
 
-  handleInput(input) {
-    console.log('********* ********** 8*******', input);
+  handleInput(event) {
+    this.setState({
+      script: {
+        ...this.state.script,
+        [this.state.currentStep]: {
+          ...this.state.script[this.state.currentStep],
+          response: {
+            ...this.state.script[this.state.currentStep].response,
+            response: event.target.value,
+          },
+        },
+      },
+    });
   }
 
   render() {
@@ -61,6 +74,8 @@ class App extends Component {
           />
           <Main
             script={this.state.script}
+            currentStep={this.state.currentStep}
+            lastStep={this.state.lastStep}
             handleInput={this.handleInput}
             changeStep={this.changeStep}
           />

@@ -1,4 +1,4 @@
-module.exports.script = {
+const script = {
   1: {
     title: 'Introduce Yourself',
     readAloudText: "Hello! I'm ____, [briefly introduce yourself]. How’s your day going? \n Welcome to " +
@@ -20,10 +20,12 @@ module.exports.script = {
     readAloudText: "Great!  It’s nice to meet you. \n Before we get too far - FYI, we record all these interviews in order to make our decision. I just want to make sure that's cool with you.",
     response: {
       type: 'consent',
-      question: 'Did the applicant explicitly consent to being filmed in this interview? (yes/no)',
+      question: 'Consent to being filmed?',
       required: true,
       key: 'INTRO_1',
       response: '',
     },
   },
 };
+
+export default script;

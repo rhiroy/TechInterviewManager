@@ -19,9 +19,14 @@ const styles = {
     margin: 25,
     maxWidth: 800
   },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: 20,
+  },
 };
 
-const Step = ({ step, handleInput }) => {
+const Step = ({ step, currentStep, lastStep, handleInput, changeStep }) => {
   const readAloudText = step.readAloudText ? (
     <ReadAloud text={step.readAloudText} />
   ) : null;
@@ -38,18 +43,24 @@ const Step = ({ step, handleInput }) => {
       {readAloudText}
       {response}
       {readToYourselfText}
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={styles.buttonContainer}>
         <Button
           color="accent"
           onClick={() => {
-            handleInput('back');
+            changeStep('back');
           }}
+          disabled={currentStep === 1}
           style={{ flex: 1 }}
         >
           <Icon color="accent">navigate_before</Icon>
           PREVIOUS
         </Button>
-        <Button color="primary" onClick={handleInput} style={{ flex: 1 }}>
+        <Button
+          color="primary"
+          onClick={changeStep}
+          style={{ flex: 1 }}
+          disabled={currentStep === lastStep}
+        >
           NEXT
           <Icon color="primary">navigate_next</Icon>
         </Button>
@@ -61,6 +72,8 @@ const Step = ({ step, handleInput }) => {
 Step.propTypes = {
   step: PropTypes.object.isRequired,
   handleInput: PropTypes.func.isRequired,
+  changeStep: PropTypes.func.isRequired,
+  currentStep: PropTypes.number.isRequired,
 };
 
 export default Step;

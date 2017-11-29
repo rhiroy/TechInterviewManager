@@ -20,12 +20,16 @@ const styles = {
     width: '100%',
     color: 'grey',
   },
+  avatar: {
+    backgroundColor: 'white',
+    marginRight: 15,
+  },
 };
 
 const ReadToYourself = ({ text }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon>info</Icon>
+      <Icon color="primary">info</Icon>
     </Avatar>
     <div style={styles.textArea}>
       {text}

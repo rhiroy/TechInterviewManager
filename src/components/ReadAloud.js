@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 
 const styles = {
   container: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'skyblue',
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',
@@ -20,12 +20,16 @@ const styles = {
     width: '100%',
     color: 'blue',
   },
+  avatar: {
+    backgroundColor: 'white',
+    marginRight: 15,
+  },
 };
 
 const ReadAloud = ({ text }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon>record_voice_over</Icon>
+      <Icon color="primary">record_voice_over</Icon>
     </Avatar>
     <div style={styles.textArea}>{text}</div>
   </Paper>
