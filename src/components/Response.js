@@ -33,7 +33,7 @@ const styles = {
 const Response = ({ response, handleInput }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon color="primary">keyboard</Icon>
+      <Icon color="action">keyboard</Icon>
     </Avatar>
     <div style={styles.textArea}>
       <TextField

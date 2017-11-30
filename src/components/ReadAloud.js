@@ -28,7 +28,7 @@ const styles = {
 const ReadAloud = ({ text }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon color="primary">record_voice_over</Icon>
+      <Icon color="action">record_voice_over</Icon>
     </Avatar>
     <div style={styles.textArea}>{text}</div>
   </Paper>

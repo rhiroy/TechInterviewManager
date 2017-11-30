@@ -14,7 +14,7 @@ class App extends Component {
       interviewDate: moment(),
       script: {},
       currentStep: 1,
-      lastStep: 0,
+      lastStep: 1,
     };
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.setInterviewDate = this.setInterviewDate.bind(this);
@@ -23,7 +23,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log(script);
     this.setState({ script, lastStep: Object.keys(script).length });
   }
 

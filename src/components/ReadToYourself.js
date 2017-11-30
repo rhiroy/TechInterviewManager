@@ -29,7 +29,7 @@ const styles = {
 const ReadToYourself = ({ text }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon color="primary">info</Icon>
+      <Icon color="action">info</Icon>
     </Avatar>
     <div style={styles.textArea}>
       {text}
