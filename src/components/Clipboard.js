@@ -59,7 +59,8 @@ class Clipboard extends React.Component {
     });
   }
   componentWillReceiveProps() {
-    // This caused a weird bug because setState is async!
+    // This caused a weird bug because setState is async!:
+    //
     // this.setState({
     //   clipboardText: this.props.clipboardText.text,
     //   code: this.props.clipboardText.code,
@@ -91,6 +92,7 @@ class Clipboard extends React.Component {
             value={this.state.clipboardText}
             disabled={this.state.code}
             multiline
+            disableUnderline
             rowsMax={10}
             style={this.state.code ? styles.code : styles.input}
             onChange={this.handleInput}
