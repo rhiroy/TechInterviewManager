@@ -27,20 +27,32 @@ const styles = {
     backgroundColor: 'white',
     marginRight: 15,
   },
-  input: {
+  code: {
     maxWidth: 650,
     width: '100%',
     fontFamily: 'monospace',
   },
+  input: {
+    maxWidth: 650,
+    width: '100%',
+    color: 'grey',
+  },
 };
 
-const Clipboard = ({ text }) => (
+const Clipboard = ({ text, code, handleInput }) => (
   <Paper style={styles.container}>
     <Avatar style={styles.avatar}>
-      <Icon color="primary">content_copy</Icon>
+      <Icon color="action">content_copy</Icon>
     </Avatar>
     <div style={styles.textArea}>
-      <Input value={text} disabled multiline style={styles.input} />
+      <Input
+        value={text}
+        disabled={code}
+        multiline
+        rowsMax={10}
+        style={code ? styles.code : styles.input}
+        onChange={handleInput}
+      />
     </div>
     <CopyToClipboard text={text}>
       <Button>Copy</Button>
@@ -48,14 +60,16 @@ const Clipboard = ({ text }) => (
   </Paper>
 );
 
+
 Clipboard.propTypes = ({
   text: PropTypes.string,
-  copyText: PropTypes.string,
+  code: PropTypes.bool,
+  handleInput: PropTypes.func.isRequired,
 });
 
 Clipboard.defaultProps = ({
   text: '',
-  copyText: '',
+  code: false,
 });
 
 export default Clipboard;
