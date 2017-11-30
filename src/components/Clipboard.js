@@ -50,9 +50,27 @@ class Clipboard extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      clipboardText: this.props.clipboardText.text,
-      code: this.props.clipboardText.code,
+    this.setState((prevState, newProps) => { //eslint-disable-line
+      return {
+        ...prevState,
+        clipboardText: newProps.clipboardText.text,
+        code: newProps.clipboardText.code,
+      };
+    });
+  }
+  componentWillReceiveProps() {
+    // This caused a weird bug because setState is async!
+    // this.setState({
+    //   clipboardText: this.props.clipboardText.text,
+    //   code: this.props.clipboardText.code,
+    // });
+
+    this.setState((prevState, newProps) => { //eslint-disable-line
+      return {
+        ...prevState,
+        clipboardText: newProps.clipboardText.text,
+        code: newProps.clipboardText.code,
+      };
     });
   }
 
@@ -70,7 +88,7 @@ class Clipboard extends React.Component {
         </Avatar>
         <div style={styles.textArea}>
           <Input
-            defaultValue={this.state.clipboardText}
+            value={this.state.clipboardText}
             disabled={this.state.code}
             multiline
             rowsMax={10}

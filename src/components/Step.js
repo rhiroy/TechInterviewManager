@@ -60,7 +60,7 @@ const Step = ({
         <Button
           color="accent"
           onClick={() => {
-            changeStep("back");
+            changeStep('back');
           }}
           disabled={currentStep === 1}
           style={{ flex: 1 }}
@@ -80,7 +80,7 @@ const Step = ({
       </div>
     </Paper>
   );
-}
+};
 
 
 Step.propTypes = {
