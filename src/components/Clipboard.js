@@ -39,37 +39,58 @@ const styles = {
   },
 };
 
-const Clipboard = ({ text, code, handleInput }) => (
-  <Paper style={styles.container}>
-    <Avatar style={styles.avatar}>
-      <Icon color="action">content_copy</Icon>
-    </Avatar>
-    <div style={styles.textArea}>
-      <Input
-        value={text}
-        disabled={code}
-        multiline
-        rowsMax={10}
-        style={code ? styles.code : styles.input}
-        onChange={handleInput}
-      />
-    </div>
-    <CopyToClipboard text={text}>
-      <Button>Copy</Button>
-    </CopyToClipboard>
-  </Paper>
-);
+class Clipboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clipboardText: '',
+      code: true,
+    };
+    this.handleInput = this.handleInput.bind(this);
+  }
 
+  componentWillMount() {
+    this.setState({
+      clipboardText: this.props.clipboardText.text,
+      code: this.props.clipboardText.code,
+    });
+  }
+
+  handleInput(event) {
+    this.setState({
+      clipboardText: event.target.value,
+    });
+  }
+
+  render() {
+    return (
+      <Paper style={styles.container}>
+        <Avatar style={styles.avatar}>
+          <Icon color="action">content_copy</Icon>
+        </Avatar>
+        <div style={styles.textArea}>
+          <Input
+            defaultValue={this.state.clipboardText}
+            disabled={this.state.code}
+            multiline
+            rowsMax={10}
+            style={this.state.code ? styles.code : styles.input}
+            onChange={this.handleInput}
+          />
+        </div>
+        <CopyToClipboard text={this.state.clipboardText}>
+          <Button>Copy</Button>
+        </CopyToClipboard>
+      </Paper>
+    );
+  }
+}
 
 Clipboard.propTypes = ({
-  text: PropTypes.string,
-  code: PropTypes.bool,
-  handleInput: PropTypes.func.isRequired,
-});
-
-Clipboard.defaultProps = ({
-  text: '',
-  code: false,
+  clipboardText: PropTypes.shape({
+    code: PropTypes.bool,
+    text: PropTypes.string,
+  }).isRequired,
 });
 
 export default Clipboard;
