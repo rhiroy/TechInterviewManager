@@ -5,7 +5,7 @@ const script = {
           "your technical interview with Hack Reactor! I’m looking forward to coding together. A" +
           "lthough we have to keep introductions brief, I’d love to get to know you. \n Can you " +
           "tell me about yourself and your journey to Hack Reactor?",
-    readToYourselfText: "This is a hint for the interviewer. It is not to be read aloud.",
+    readToYourselfText: "This is a hint for the interviewer.\n It is not to be read aloud.",
     response: {
       type: 'text',
       multi: true,
@@ -25,6 +25,11 @@ const script = {
       key: 'INTRO_1',
       response: '',
     },
+  },
+  3: {
+    title: 'CopyPasta',
+    readAloudText: "Here is a helper function we gon' use",
+    clipboardText: "function() { \n  console.log('test');\n}",
   },
 };
 

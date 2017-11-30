@@ -6,6 +6,7 @@ import Icon from 'material-ui/Icon';
 import ReadAloud from './ReadAloud';
 import ReadToYourself from './ReadToYourself';
 import Response from './Response';
+import Clipboard from './Clipboard';
 
 const styles = {
   container: {
@@ -36,11 +37,15 @@ const Step = ({ step, currentStep, lastStep, handleInput, changeStep }) => {
   const readToYourselfText = step.readToYourselfText ? (
     <ReadToYourself text={step.readToYourselfText} />
   ) : null;
+  const clipboardText = step.clipboardText ? (
+    <Clipboard text={step.clipboardText} />
+  ) : null;
 
   return (
     <Paper style={styles.container}>
       {<h2>{step.title}</h2>}
       {readAloudText}
+      {clipboardText}
       {response}
       {readToYourselfText}
       <div style={styles.buttonContainer}>

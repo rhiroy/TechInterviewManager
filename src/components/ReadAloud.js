@@ -18,7 +18,6 @@ const styles = {
     borderRadius: 5,
     maxWidth: 700,
     width: '100%',
-    color: 'blue',
   },
   avatar: {
     backgroundColor: 'white',

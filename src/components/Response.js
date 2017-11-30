@@ -40,8 +40,11 @@ const Response = ({ response, handleInput }) => (
         value={response.response}
         multiline={response.multi || false}
         label={response.question}
+        autoFocus
+        required={response.required}
         style={styles.input}
         onChange={handleInput}
+        rowsMax={5}
       />
     </div>
   </Paper>
