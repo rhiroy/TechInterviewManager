@@ -58,20 +58,11 @@ class Clipboard extends React.Component {
       };
     });
   }
-  componentWillReceiveProps() {
-    // This caused a weird bug because setState is async!:
-    //
-    // this.setState({
-    //   clipboardText: this.props.clipboardText.text,
-    //   code: this.props.clipboardText.code,
-    // });
 
-    this.setState((prevState, newProps) => { //eslint-disable-line
-      return {
-        ...prevState,
-        clipboardText: newProps.clipboardText.text,
-        code: newProps.clipboardText.code,
-      };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      clipboardText: nextProps.clipboardText.text,
+      code: nextProps.clipboardText.code,
     });
   }
 

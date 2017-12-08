@@ -48,6 +48,7 @@ const Response = ({ response, handleInput }) => (
       />
     </div>
   </Paper>
+
 );
 
 Response.propTypes = ({
