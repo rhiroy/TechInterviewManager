@@ -14,12 +14,13 @@ const TopBar = ({
   applicantName,
   interviewDate,
   setInterviewDate,
+  toggleEvent
 }) => (
   <AppBar position="static" color="default">
     <Toolbar>
       <IconButton
         style={styles.icon}
-        onClick={toggleSidebar}
+        onClick={toggleEvent('showSidebar')}
       >
         <MenuIcon />
       </IconButton>

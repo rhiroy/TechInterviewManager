@@ -6,63 +6,31 @@ import Main from './components/Main';
 import script from './data/script';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showSidebar: false,
-      applicantName: '',
-      interviewDate: moment(),
-      interviewInProgress: false,
-      script: {},
-      currentStep: 1,
-      lastStep: 1,
-    };
-    this.toggleSidebar = this.toggleSidebar.bind(this);
-    this.setInterviewDate = this.setInterviewDate.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.changeStep = this.changeStep.bind(this);
-    this.toggleInterview = this.toggleInterview.bind(this);
-    this.selectPrompt = this.selectPrompt.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+  state = {
+    showSidebar: false,
+    applicantName: '',
+    interviewDate: moment(),
+    interviewInProgress: false,
+    script: {},
+    currentStep: 1,
+    lastStep: 1,
   }
 
   componentWillMount() {
     this.setState({ script, lastStep: Object.keys(script).length });
   }
 
-  setInterviewDate(date) {
+  setInterviewDate = (date) => {
     this.setState({ interviewDate: date });
   }
  
-  setApplicantName(input) {
-    this.setState({ applicantName: input });
-  }
-
-  handleChange(prop) {
+  handleChange = (prop) => {
     return (event) => {
       this.setState({ [prop]: event.target.value });
     };
   }
 
-  toggleSidebar() {
-    this.setState({ showSidebar: !this.state.showSidebar });
-  }
-
-  toggleInterview() {
-    this.setState({ interviewInProgress: !this.state.interviewInProgress });
-  }
-
-  changeStep(direction) {
-    const step = direction === 'back' ? -1 : 1;
-    this.setState({ currentStep: this.state.currentStep + step });
-  }
-
-  selectPrompt(prompt) {
-    //TODO: make this update the script based on selected prompt.
-    console.log(prompt);
-  }
-
-  handleInput(event) {
+  handleInput = (event) =>{
     this.setState({
       script: {
         ...this.state.script,
@@ -77,11 +45,35 @@ class App extends Component {
     });
   }
 
+  toggleEvent = (prop) => () => {
+    this.setState({ [prop]: !this.state[prop] })
+  }
+
+  toggleSidebar = () => {
+    this.setState({ showSidebar: !this.state.showSidebar });
+  }
+
+  toggleInterview = () => {
+    this.setState({ interviewInProgress: !this.state.interviewInProgress });
+  }
+
+  changeStep = (direction) => {
+    const step = direction === 'back' ? -1 : 1;
+    this.setState({ currentStep: this.state.currentStep + step });
+  }
+
+  selectPrompt = (prompt) => {
+    //TODO: make this update the script based on selected prompt.
+    console.log(prompt);
+  }
+
+
   render() {
     return (
       <div>
         <TopBar
           toggleSidebar={this.toggleSidebar}
+          toggleEvent={this.toggleEvent}
           interviewDate={this.state.interviewDate}
           applicantName={this.state.applicantName}
           setInterviewDate={this.setInterviewDate}
