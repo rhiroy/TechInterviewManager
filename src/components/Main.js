@@ -2,6 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Step from './Step';
 import Start from './Start';
+import TimeStampNotes from './TimeStampNotes';
+
+const styles = {
+  container: {
+    flex: 2,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  paper: {
+    padding: 10,
+  },
+};
 
 const Main = ({
   applicantName,
@@ -13,7 +25,6 @@ const Main = ({
   handleChange,
   handleInput,
   changeStep,
-  selectPrompt,
   toggleEvent,
   prompt,
 }) => {
@@ -27,6 +38,7 @@ const Main = ({
           handleInput={handleInput}
           changeStep={changeStep}
         />
+        <TimeStampNotes />
       </div>
     );
   }
@@ -35,7 +47,6 @@ const Main = ({
       <Start
         applicantName={applicantName}
         interviewDate={interviewDate}
-        selectPrompt={selectPrompt}
         handleChange={handleChange}
         toggleEvent={toggleEvent}
         prompt={prompt}
@@ -44,16 +55,6 @@ const Main = ({
   );
 };
 
-const styles = {
-  container: {
-    flex: 2,
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  paper: {
-    padding: 10,
-  },
-};
 
 Main.propTypes = ({
   applicantName: PropTypes.string.isRequired,
@@ -65,7 +66,6 @@ Main.propTypes = ({
   handleChange: PropTypes.func.isRequired,
   handleInput: PropTypes.func.isRequired,
   changeStep: PropTypes.func.isRequired,
-  selectPrompt: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
 });

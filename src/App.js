@@ -52,11 +52,6 @@ class App extends Component {
     this.setState({ currentStep: this.state.currentStep + step });
   }
 
-  selectPrompt = (prompt) => {
-    //TODO: make this update the script based on selected prompt.
-    console.log(prompt);
-  }
-
   render() {
     return (
       <div>
@@ -77,7 +72,6 @@ class App extends Component {
             handleChange={this.handleChange}
             handleInput={this.handleInput}
             changeStep={this.changeStep}
-            selectPrompt={this.selectPrompt}
             toggleEvent={this.toggleEvent}
             prompt={this.state.prompt}
           />
