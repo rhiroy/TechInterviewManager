@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 import Icon from 'material-ui/Icon';
 import Avatar from 'material-ui/Avatar';
+import Input from 'material-ui/Input';
 
 const styles = {
   container: {
@@ -23,6 +24,11 @@ const styles = {
     backgroundColor: 'white',
     marginRight: 15,
   },
+  input: {
+    maxWidth: 650,
+    width: '100%',
+    color: 'black',
+  },
 };
 
 const ReadAloud = ({ text }) => (
@@ -30,7 +36,9 @@ const ReadAloud = ({ text }) => (
     <Avatar style={styles.avatar}>
       <Icon color="action">record_voice_over</Icon>
     </Avatar>
-    <div style={styles.textArea}>{text}</div>
+    <div style={styles.textArea}>
+      <Input value={text} disabled multiline disableUnderline style={styles.input} />
+    </div>
   </Paper>
 );
 

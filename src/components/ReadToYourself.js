@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 import Icon from 'material-ui/Icon';
 import Avatar from 'material-ui/Avatar';
+import Input from 'material-ui/Input';
 
 const styles = {
   container: {
@@ -24,6 +25,11 @@ const styles = {
     backgroundColor: 'white',
     marginRight: 15,
   },
+  input: {
+    maxWidth: 650,
+    width: '100%',
+    color: 'grey',
+  },
 };
 
 const ReadToYourself = ({ text }) => (
@@ -32,17 +38,17 @@ const ReadToYourself = ({ text }) => (
       <Icon color="action">info</Icon>
     </Avatar>
     <div style={styles.textArea}>
-      {text}
+      <Input value={text} disabled multiline disableUnderline style={styles.input} />
     </div>
   </Paper>
 );
 
-ReadToYourself.propTypes = ({
+ReadToYourself.propTypes = {
   text: PropTypes.string,
-});
+};
 
-ReadToYourself.defaultProps = ({
+ReadToYourself.defaultProps = {
   text: '',
-});
+};
 
 export default ReadToYourself;
