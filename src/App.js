@@ -14,19 +14,17 @@ class App extends Component {
     script: {},
     currentStep: 1,
     lastStep: 1,
+    prompt: '',
   }
 
   componentWillMount() {
     this.setState({ script, lastStep: Object.keys(script).length });
   }
-
-  setInterviewDate = (date) => {
-    this.setState({ interviewDate: date });
-  }
  
   handleChange = (prop) => {
     return (event) => {
-      this.setState({ [prop]: event.target.value });
+      const value = event.target ? event.target.value : event;
+      this.setState({ [prop]: value });
     };
   }
 
@@ -49,14 +47,6 @@ class App extends Component {
     this.setState({ [prop]: !this.state[prop] })
   }
 
-  toggleSidebar = () => {
-    this.setState({ showSidebar: !this.state.showSidebar });
-  }
-
-  toggleInterview = () => {
-    this.setState({ interviewInProgress: !this.state.interviewInProgress });
-  }
-
   changeStep = (direction) => {
     const step = direction === 'back' ? -1 : 1;
     this.setState({ currentStep: this.state.currentStep + step });
@@ -67,32 +57,29 @@ class App extends Component {
     console.log(prompt);
   }
 
-
   render() {
     return (
       <div>
         <TopBar
-          toggleSidebar={this.toggleSidebar}
           toggleEvent={this.toggleEvent}
           interviewDate={this.state.interviewDate}
           applicantName={this.state.applicantName}
-          setInterviewDate={this.setInterviewDate}
         />
         <div className="App" style={{ flexDirection: 'row', display: 'flex' }}>
           <SideBar show={this.state.showSidebar} style={{ flex: 1 }} />
           <Main
             applicantName={this.state.applicantName}
             interviewDate={this.state.interviewDate}
-            setInterviewDate={this.setInterviewDate}
             interviewInProgress={this.state.interviewInProgress}
             script={this.state.script}
             currentStep={this.state.currentStep}
             lastStep={this.state.lastStep}
+            handleChange={this.handleChange}
             handleInput={this.handleInput}
             changeStep={this.changeStep}
-            toggleInterview={this.toggleInterview}
             selectPrompt={this.selectPrompt}
-            handleChange={this.handleChange}
+            toggleEvent={this.toggleEvent}
+            prompt={this.state.prompt}
           />
         </div>
       </div>

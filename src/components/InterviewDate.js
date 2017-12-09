@@ -1,20 +1,27 @@
 import React from 'react';
-import { DatePicker } from 'material-ui-pickers';
 import PropTypes from 'prop-types';
+import { DatePicker } from 'material-ui-pickers';
+
+const styles = {
+  input: {
+    maxWidth: 350,
+    width: '100%',
+  },
+};
 
 const InterviewDate = ({ interviewDate, setInterviewDate }) => (
-  <div key="basic_day" className="picker">
-    <DatePicker
-      value={interviewDate}
-      onChange={setInterviewDate}
-      animateYearScrolling={false}
-    />
-  </div>
+  <DatePicker
+    value={interviewDate}
+    onChange={setInterviewDate}
+    animateYearScrolling={false}
+    format="MM/DD/YYYY"
+    style={styles.input}
+  />
 );
 
-InterviewDate.propTypes = ({
+InterviewDate.propTypes = {
   interviewDate: PropTypes.object.isRequired,
   setInterviewDate: PropTypes.func.isRequired,
-});
+};
 
 export default InterviewDate;

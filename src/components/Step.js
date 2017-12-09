@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import Typography from 'material-ui/Typography';
 import ReadAloud from './ReadAloud';
 import ReadToYourself from './ReadToYourself';
 import Response from './Response';
@@ -51,7 +52,7 @@ const Step = ({
 
   return (
     <Paper style={styles.container}>
-      {<h2>{step.title}</h2>}
+      {<Typography type="headline">{step.title}</Typography>}
       {readAloudText}
       {clipboardText}
       {response}

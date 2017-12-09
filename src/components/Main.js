@@ -10,13 +10,12 @@ const Main = ({
   script,
   currentStep,
   lastStep,
+  handleChange,
   handleInput,
   changeStep,
-  toggleInterview,
   selectPrompt,
-  setApplicantName,
-  setInterviewDate,
-  handleChange,
+  toggleEvent,
+  prompt,
 }) => {
   if (interviewInProgress) {
     return (
@@ -36,11 +35,10 @@ const Main = ({
       <Start
         applicantName={applicantName}
         interviewDate={interviewDate}
-        setInterviewDate={setInterviewDate}
-        toggleInterview={toggleInterview}
         selectPrompt={selectPrompt}
-        setApplicantName={setApplicantName}
         handleChange={handleChange}
+        toggleEvent={toggleEvent}
+        prompt={prompt}
       />
     </div>
   );
@@ -60,17 +58,16 @@ const styles = {
 Main.propTypes = ({
   applicantName: PropTypes.string.isRequired,
   interviewDate: PropTypes.object.isRequired,
+  interviewInProgress: PropTypes.bool.isRequired,
   script: PropTypes.object.isRequired,
   currentStep: PropTypes.number.isRequired,
   lastStep: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
   handleInput: PropTypes.func.isRequired,
   changeStep: PropTypes.func.isRequired,
-  interviewInProgress: PropTypes.bool.isRequired,
-  toggleInterview: PropTypes.func.isRequired,
   selectPrompt: PropTypes.func.isRequired,
-  setApplicantName: PropTypes.func.isRequired,
-  setInterviewDate: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  toggleEvent: PropTypes.func.isRequired,
+  prompt: PropTypes.string.isRequired,
 });
 
 export default Main;
