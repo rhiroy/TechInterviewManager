@@ -15,7 +15,6 @@ class App extends Component {
     currentStep: 1,
     lastStep: 1,
     prompt: '',
-    codestitchUrl: '',
   }
 
   componentWillMount() {
@@ -81,7 +80,6 @@ class App extends Component {
             selectPrompt={this.selectPrompt}
             toggleEvent={this.toggleEvent}
             prompt={this.state.prompt}
-            codestitchUrl={this.state.codestitchUrl}
           />
         </div>
       </div>

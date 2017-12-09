@@ -35,7 +35,7 @@ const styles = {
 };
 
 const Start = ({
-  applicantName, interviewDate, handleChange, toggleEvent, prompt, codestitchUrl,
+  applicantName, interviewDate, handleChange, toggleEvent, prompt,
 }) => (
   <Paper style={styles.container}>
     <Typography type="headline">Begin a New Interview...</Typography>
@@ -69,14 +69,6 @@ const Start = ({
           </Select>
         </FormControl>
       </div>
-      <div style={styles.div}>
-        <TextField
-          value={codestitchUrl}
-          label="Codestitch URL"
-          style={styles.input}
-          onChange={handleChange('codestitchUrl')}
-        />
-      </div>
     </div>
     <Button
       raised
@@ -94,7 +86,7 @@ Start.propTypes = {
   interviewDate: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
-  codestitchUrl: PropTypes.string.isRequired,
+  prompt: PropTypes.string.isRequired,
 };
 
 export default Start;

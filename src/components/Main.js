@@ -16,7 +16,6 @@ const Main = ({
   selectPrompt,
   toggleEvent,
   prompt,
-  codestitchUrl,
 }) => {
   if (interviewInProgress) {
     return (
@@ -40,7 +39,6 @@ const Main = ({
         handleChange={handleChange}
         toggleEvent={toggleEvent}
         prompt={prompt}
-        codestitchUrl={codestitchUrl}
       />
     </div>
   );
@@ -70,7 +68,6 @@ Main.propTypes = ({
   selectPrompt: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
-  codestitchUrl: PropTypes.string.isRequired,
 });
 
 export default Main;
