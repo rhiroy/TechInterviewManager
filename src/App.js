@@ -10,8 +10,9 @@ class App extends Component {
     super(props);
     this.state = {
       showSidebar: false,
-      applicantName: 'Johny Testtaker',
+      applicantName: '',
       interviewDate: moment(),
+      interviewInProgress: false,
       script: {},
       currentStep: 1,
       lastStep: 1,
@@ -20,6 +21,9 @@ class App extends Component {
     this.setInterviewDate = this.setInterviewDate.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.changeStep = this.changeStep.bind(this);
+    this.toggleInterview = this.toggleInterview.bind(this);
+    this.selectPrompt = this.selectPrompt.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
@@ -29,17 +33,33 @@ class App extends Component {
   setInterviewDate(date) {
     this.setState({ interviewDate: date });
   }
+ 
+  setApplicantName(input) {
+    this.setState({ applicantName: input });
+  }
+
+  handleChange(prop) {
+    return (event) => {
+      this.setState({ [prop]: event.target.value });
+    };
+  }
 
   toggleSidebar() {
     this.setState({ showSidebar: !this.state.showSidebar });
   }
 
+  toggleInterview() {
+    this.setState({ interviewInProgress: !this.state.interviewInProgress });
+  }
+
   changeStep(direction) {
-    if (direction === 'back') {
-      this.setState({ currentStep: this.state.currentStep - 1 });
-    } else {
-      this.setState({ currentStep: this.state.currentStep + 1 });
-    }
+    const step = direction === 'back' ? -1 : 1;
+    this.setState({ currentStep: this.state.currentStep + step });
+  }
+
+  selectPrompt(prompt) {
+    //TODO: make this update the script based on selected prompt.
+    console.log(prompt);
   }
 
   handleInput(event) {
@@ -67,16 +87,20 @@ class App extends Component {
           setInterviewDate={this.setInterviewDate}
         />
         <div className="App" style={{ flexDirection: 'row', display: 'flex' }}>
-          <SideBar
-            show={this.state.showSidebar}
-            style={{ flex: 1 }}
-          />
+          <SideBar show={this.state.showSidebar} style={{ flex: 1 }} />
           <Main
+            applicantName={this.state.applicantName}
+            interviewDate={this.state.interviewDate}
+            setInterviewDate={this.setInterviewDate}
+            interviewInProgress={this.state.interviewInProgress}
             script={this.state.script}
             currentStep={this.state.currentStep}
             lastStep={this.state.lastStep}
             handleInput={this.handleInput}
             changeStep={this.changeStep}
+            toggleInterview={this.toggleInterview}
+            selectPrompt={this.selectPrompt}
+            handleChange={this.handleChange}
           />
         </div>
       </div>
