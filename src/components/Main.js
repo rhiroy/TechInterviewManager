@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Step from './Step';
 import Start from './Start';
-import TimeStampNotes from './TimeStampNotes';
 
 const styles = {
   container: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     textAlign: 'center',
   },
@@ -27,7 +26,6 @@ const Main = ({
   changeStep,
   toggleEvent,
   prompt,
-  notes,
 }) => {
   if (interviewInProgress) {
     return (
@@ -38,10 +36,6 @@ const Main = ({
           lastStep={lastStep}
           handleInput={handleInput}
           changeStep={changeStep}
-        />
-        <TimeStampNotes
-          handleChange={handleChange}
-          notes={notes}
         />
       </div>
     );
@@ -72,7 +66,6 @@ Main.propTypes = ({
   changeStep: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
-  notes: PropTypes.string.isRequired,
 });
 
 export default Main;

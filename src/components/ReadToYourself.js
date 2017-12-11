@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Icon from 'material-ui/Icon';
 import Avatar from 'material-ui/Avatar';
 import Input from 'material-ui/Input';
+import { withStyles } from 'material-ui/styles';
 
-const styles = {
+const styles = theme => ({
   container: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: theme.palette.secondary[500],
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',
@@ -30,25 +31,26 @@ const styles = {
     width: '100%',
     color: 'grey',
   },
-};
+});
 
-const ReadToYourself = ({ text }) => (
-  <Paper style={styles.container}>
-    <Avatar style={styles.avatar}>
-      <Icon color="action">info</Icon>
+const ReadToYourself = ({ text, classes }) => (
+  <Paper className={classes.container}>
+    <Avatar className={classes.avatar}>
+      <Icon color="primary">info</Icon>
     </Avatar>
-    <div style={styles.textArea}>
-      <Input value={text} disabled multiline disableUnderline style={styles.input} />
+    <div className={classes.textArea}>
+      <Input value={text} disabled multiline disableUnderline className={classes.input} />
     </div>
   </Paper>
 );
 
 ReadToYourself.propTypes = {
   text: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 ReadToYourself.defaultProps = {
   text: '',
 };
 
-export default ReadToYourself;
+export default withStyles(styles)(ReadToYourself);

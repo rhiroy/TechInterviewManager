@@ -19,6 +19,7 @@ const styles = {
     paddingTop: 10,
     paddingBottom: 10,
     margin: 25,
+    marginBottom: 70,
     maxWidth: 800,
   },
   buttonContainer: {

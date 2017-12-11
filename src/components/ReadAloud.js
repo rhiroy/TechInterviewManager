@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Icon from 'material-ui/Icon';
 import Avatar from 'material-ui/Avatar';
 import Input from 'material-ui/Input';
+import { withStyles } from 'material-ui/styles';
 
-const styles = {
+const styles = theme => ({
   container: {
-    backgroundColor: 'skyblue',
+    backgroundColor: theme.palette.secondary[500],
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',
@@ -29,25 +30,26 @@ const styles = {
     width: '100%',
     color: 'black',
   },
-};
+});
 
-const ReadAloud = ({ text }) => (
-  <Paper style={styles.container}>
-    <Avatar style={styles.avatar}>
-      <Icon color="action">record_voice_over</Icon>
+const ReadAloud = ({ text, classes }) => (
+  <Paper className={classes.container}>
+    <Avatar className={classes.avatar}>
+      <Icon color="primary">record_voice_over</Icon>
     </Avatar>
-    <div style={styles.textArea}>
-      <Input value={text} disabled multiline disableUnderline style={styles.input} />
+    <div className={classes.textArea}>
+      <Input value={text} disabled multiline disableUnderline className={classes.input} />
     </div>
   </Paper>
 );
 
 ReadAloud.propTypes = {
   text: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 ReadAloud.defaultProps = {
   text: '',
 };
 
-export default ReadAloud;
+export default withStyles(styles)(ReadAloud);

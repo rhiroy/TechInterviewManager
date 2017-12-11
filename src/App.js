@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import moment from 'moment';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
+import blue from 'material-ui/colors/blue';
+import red from 'material-ui/colors/red';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import Main from './components/Main';
+import TimeStampNotes from './components/TimeStampNotes';
 import script from './data/script';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
+    primary: blue,
+    secondary: red,
   },
   status: {
     danger: 'orange',
@@ -29,10 +30,23 @@ class App extends Component {
     lastStep: 1,
     prompt: '',
     notes: '',
+    timer: {
+      start: null,
+      elapsed: null,
+    },
   };
 
   componentWillMount() {
+    console.log(moment())
     this.setState({ script, lastStep: Object.keys(script).length });
+  }
+
+  componentDidUpdate() {
+    let notes = this.state.notes;
+    if ( this.state.timer.elapsed && notes.includes('/t')) {
+      notes = notes.replace('/t', `[${moment(this.state.timer.elapsed).format('m:ss')}]: `);
+      this.setState({ notes });
+    }
   }
 
   handleChange = prop => {
@@ -66,33 +80,59 @@ class App extends Component {
     this.setState({ currentStep: this.state.currentStep + step });
   };
 
+  tick = () => {
+    this.setState({ 
+      ...this.state,
+      timer: {
+        ...this.state.timer,
+        elapsed: moment() - this.state.timer.start
+      }
+    })
+  }
+
+  startTimer = () => {
+    this.setState({
+      timer: {
+        start: moment()
+      }
+    })
+    this.timer = setInterval(this.tick, 500);
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div>
-          <TopBar
-            toggleEvent={this.toggleEvent}
-            interviewDate={this.state.interviewDate}
+        <TopBar
+          toggleEvent={this.toggleEvent}
+          interviewDate={this.state.interviewDate}
+          applicantName={this.state.applicantName}
+          startTimer={this.startTimer}
+          elapsed={this.state.timer.elapsed}
+        />
+        <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <SideBar show={this.state.showSidebar} />
+          {/* <div className="App" style={{ flexDirection: 'column', display: 'flex' }}> */}
+          <Main
             applicantName={this.state.applicantName}
-            />
-          <div className="App" style={{ flexDirection: 'row', display: 'flex' }}>
-            <SideBar show={this.state.showSidebar} style={{ flex: 1 }} />
-            <Main
-              applicantName={this.state.applicantName}
-              interviewDate={this.state.interviewDate}
-              interviewInProgress={this.state.interviewInProgress}
-              script={this.state.script}
-              currentStep={this.state.currentStep}
-              lastStep={this.state.lastStep}
-              handleChange={this.handleChange}
-              handleInput={this.handleInput}
-              changeStep={this.changeStep}
-              toggleEvent={this.toggleEvent}
-              prompt={this.state.prompt}
-              notes={this.state.notes}
-              />
-          </div>
+            interviewDate={this.state.interviewDate}
+            interviewInProgress={this.state.interviewInProgress}
+            script={this.state.script}
+            currentStep={this.state.currentStep}
+            lastStep={this.state.lastStep}
+            handleChange={this.handleChange}
+            handleInput={this.handleInput}
+            changeStep={this.changeStep}
+            toggleEvent={this.toggleEvent}
+            prompt={this.state.prompt}
+            notes={this.state.notes}
+          />
         </div>
+        <TimeStampNotes
+          handleChange={this.handleChange}
+          notes={this.state.notes}
+          show={this.state.interviewInProgress}
+        />
+        {/* </div> */}
       </MuiThemeProvider>
     );
   }

@@ -6,7 +6,7 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
 } from 'material-ui/es/ExpansionPanel';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import ExpandLessIcon from 'material-ui-icons/ExpandLess';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
@@ -14,8 +14,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     bottom: 0,
-    backgroundColor: theme.palette.secondary[300],
-    padding: 0,
+    backgroundColor: theme.palette.primary[500],
   },
   input: {
     width: '100%',
@@ -27,25 +26,35 @@ const styles = theme => ({
   },
 });
 
-const TimeStampNotes = ({ classes, notes, handleChange }) => (
-  <ExpansionPanel className={classes.container}>
-    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-      <Typography type="subheading">Interviewer Notes</Typography>
-    </ExpansionPanelSummary>
-    <ExpansionPanelDetails>
-      <Input
-        value={notes}
-        multiline
-        className={classes.input}
-        rowsMax={5}
-        onChange={handleChange('notes')}
-      />
-    </ExpansionPanelDetails>
-  </ExpansionPanel>
-);
+const TimeStampNotes = ({
+  classes,
+  notes,
+  handleChange,
+  show,
+}) => {
+  return show ? (
+    <ExpansionPanel className={classes.container}>
+      <ExpansionPanelSummary expandIcon={<ExpandLessIcon />} >
+        <Typography type="subheading">Interviewer Notes</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Input
+          value={notes}
+          multiline
+          className={classes.input}
+          rowsMax={5}
+          onChange={handleChange('notes')}
+        />
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  ) : null;
+};
 
 TimeStampNotes.propTypes = ({
   classes: PropTypes.object.isRequired,
+  notes: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 });
 
 export default withStyles(styles)(TimeStampNotes);
