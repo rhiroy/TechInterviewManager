@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import moment from 'moment';
 import blue from 'material-ui/colors/blue';
-import red from 'material-ui/colors/red';
+import purple from 'material-ui/colors/purple';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import Main from './components/Main';
@@ -12,7 +12,7 @@ import script from './data/script';
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: red,
+    secondary: purple,
   },
   status: {
     danger: 'orange',
@@ -45,7 +45,7 @@ class App extends Component {
     let notes = this.state.notes;
     const replacementText = this.state.timer.elapsed 
       ? `[${moment(this.state.timer.elapsed).format('m:ss')}]: ` 
-      : `[START TIMER]`;
+      : `[START TIMER!]`;
     if (notes.includes('/t')) {
       notes = notes.replace('/t', replacementText);
       this.setState({ notes });

@@ -29,7 +29,7 @@ const Main = ({
 }) => {
   if (interviewInProgress) {
     return (
-      <div style={styles.container}>
+      <div style={styles.container} >
         <Step
           step={script[currentStep]}
           currentStep={currentStep}
@@ -53,8 +53,7 @@ const Main = ({
   );
 };
 
-
-Main.propTypes = ({
+Main.propTypes = {
   applicantName: PropTypes.string.isRequired,
   interviewDate: PropTypes.object.isRequired,
   interviewInProgress: PropTypes.bool.isRequired,
@@ -66,6 +65,6 @@ Main.propTypes = ({
   changeStep: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
-});
+};
 
 export default Main;

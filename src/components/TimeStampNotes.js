@@ -14,7 +14,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     bottom: 0,
-    backgroundColor: theme.palette.primary[500],
+    backgroundColor: theme.palette.secondary[500],
   },
   input: {
     width: '100%',

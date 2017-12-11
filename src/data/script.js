@@ -69,14 +69,14 @@ Meeting URL should automatically copy when you start the meeting. If not, click 
     title: 'Experience & Preparation',
     readAloudText:
       'Can you tell me a little bit about your prior coding experience, and how you prepared for this interview?  [Ask follow up questions if not all questions are answered]',
+    readToYourselfText: 'Share your own background. It is great if you can relate to the student.',
     response: {
-      type: 'text',
+      type: 'annother',
       question: 'Boot camp prep courses taken',
-      required: false,
+      required: true,
       key: 'EXP_1',
       response: '',
     },
-    readToYourselfText: 'Share your own background. It is great if you can relate to the student.',
   },
   8: {
     title: "Experience & Preparation (cont'd)",

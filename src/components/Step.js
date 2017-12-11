@@ -30,26 +30,16 @@ const styles = {
 };
 
 const Step = ({
-  step,
-  currentStep,
-  lastStep,
-  handleInput,
-  changeStep,
+  step, currentStep, lastStep, handleInput, changeStep,
 }) => {
-  const readAloudText = step.readAloudText ? (
-    <ReadAloud text={step.readAloudText} />
-  ) : null;
+  const readAloudText = step.readAloudText ? <ReadAloud text={step.readAloudText} /> : null;
   const response = step.response ? (
     <Response response={step.response} handleInput={handleInput} />
   ) : null;
   const readToYourselfText = step.readToYourselfText ? (
     <ReadToYourself text={step.readToYourselfText} />
   ) : null;
-  const clipboardText = step.clipboard ? (
-    <Clipboard
-      clipboardText={step.clipboard}
-    />
-  ) : null;
+  const clipboardText = step.clipboard ? <Clipboard clipboardText={step.clipboard} /> : null;
 
   return (
     <Paper style={styles.container}>
@@ -83,7 +73,6 @@ const Step = ({
     </Paper>
   );
 };
-
 
 Step.propTypes = {
   step: PropTypes.object.isRequired,

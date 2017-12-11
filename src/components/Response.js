@@ -38,6 +38,7 @@ const Response = ({ response, handleInput, classes }) => (
     </Avatar>
     <div className={classes.textArea}>
       <TextField
+        key={response.key}
         value={response.response}
         multiline={response.multi || false}
         label={response.question}
