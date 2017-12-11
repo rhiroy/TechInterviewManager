@@ -43,8 +43,11 @@ class App extends Component {
 
   componentDidUpdate() {
     let notes = this.state.notes;
-    if ( this.state.timer.elapsed && notes.includes('/t')) {
-      notes = notes.replace('/t', `[${moment(this.state.timer.elapsed).format('m:ss')}]: `);
+    const replacementText = this.state.timer.elapsed 
+      ? `[${moment(this.state.timer.elapsed).format('m:ss')}]: ` 
+      : `[START TIMER]`;
+    if (notes.includes('/t')) {
+      notes = notes.replace('/t', replacementText);
       this.setState({ notes });
     }
   }
