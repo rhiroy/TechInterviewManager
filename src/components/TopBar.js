@@ -13,9 +13,6 @@ const styles = {
     flex: 1,
     marginLeft: 20,
   },
-  timer: {
-    backgroundColor: 'red',
-  },
   icon: {
     marginLeft: -12,
     marginRight: 20,
@@ -42,7 +39,7 @@ const TopBar = ({
         {`${interviewDate.month() + 1}/${interviewDate.date()}/${interviewDate.year()}`}
       </Typography>
 
-      <Button raised style={styles.timer}>
+      <Button raised color="accent">
         <Timer style={{ paddingRight: 10 }} />
         <Typography>START TIMER</Typography>
       </Button>

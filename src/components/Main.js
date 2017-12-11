@@ -27,6 +27,7 @@ const Main = ({
   changeStep,
   toggleEvent,
   prompt,
+  notes,
 }) => {
   if (interviewInProgress) {
     return (
@@ -38,7 +39,10 @@ const Main = ({
           handleInput={handleInput}
           changeStep={changeStep}
         />
-        <TimeStampNotes />
+        <TimeStampNotes
+          handleChange={handleChange}
+          notes={notes}
+        />
       </div>
     );
   }
@@ -68,6 +72,7 @@ Main.propTypes = ({
   changeStep: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
+  notes: PropTypes.string.isRequired,
 });
 
 export default Main;
