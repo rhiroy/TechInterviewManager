@@ -237,6 +237,10 @@ Here are some ground rules:
       text: "function() { \n  console.log('test');\n}",
     },
   },
+/////////////////////////
+// End of technical prompt
+/////////////////////////
+
 };
 
 export default script;

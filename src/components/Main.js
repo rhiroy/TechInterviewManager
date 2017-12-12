@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Step from './Step';
 import Start from './Start';
+import { withTheme } from 'material-ui/styles';
 
 const styles = {
   container: {
@@ -67,4 +68,4 @@ Main.propTypes = {
   prompt: PropTypes.string.isRequired,
 };
 
-export default Main;
+export default withTheme()(Main);

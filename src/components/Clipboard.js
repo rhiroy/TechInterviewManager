@@ -10,7 +10,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const styles = theme => ({
   container: {
-    backgroundColor: theme.palette.secondary[500],
+    // backgroundColor: theme.palette.action.disabled,
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',

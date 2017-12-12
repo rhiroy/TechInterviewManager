@@ -8,7 +8,6 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   container: {
-    backgroundColor: theme.palette.secondary[500],
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',
@@ -16,7 +15,6 @@ const styles = theme => ({
   },
   textArea: {
     backgroundColor: 'white',
-    padding: 10,
     borderRadius: 5,
     maxWidth: 700,
     width: '100%',
@@ -30,6 +28,7 @@ const styles = theme => ({
     maxWidth: 650,
     width: '100%',
     color: 'grey',
+    fontSize: '0.8rem',
   },
 });
 

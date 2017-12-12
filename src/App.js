@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme, withTheme } from 'material-ui/styles';
 import moment from 'moment';
 import blue from 'material-ui/colors/blue';
 import purple from 'material-ui/colors/purple';
@@ -34,21 +34,19 @@ class App extends Component {
       start: null,
       elapsed: null,
     },
+    darkMode: false,
   };
 
   componentWillMount() {
-    console.log(moment())
     this.setState({ script, lastStep: Object.keys(script).length });
   }
 
-  componentDidUpdate() {
-    let notes = this.state.notes;
-    const replacementText = this.state.timer.elapsed 
-      ? `[${moment(this.state.timer.elapsed).format('m:ss')}]: ` 
-      : `[START TIMER!]`;
-    if (notes.includes('/t')) {
-      notes = notes.replace('/t', replacementText);
-      this.setState({ notes });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.notes !== this.state.notes) {
+      this.insertTimestamp();
+    }
+    if (prevState.darkMode !== this.state.darkMode) {
+      this.toggleDarkMode();
     }
   }
 
@@ -84,23 +82,41 @@ class App extends Component {
   };
 
   tick = () => {
-    this.setState({ 
+    this.setState({
       ...this.state,
       timer: {
         ...this.state.timer,
-        elapsed: moment() - this.state.timer.start
-      }
-    })
-  }
+        elapsed: moment() - this.state.timer.start,
+      },
+    });
+  };
 
   startTimer = () => {
     this.setState({
       timer: {
-        start: moment()
-      }
-    })
+        start: moment(),
+      },
+    });
     this.timer = setInterval(this.tick, 500);
-  }
+  };
+
+  toggleDarkMode = () => {
+    const setting = this.state.darkMode ? 'light' : 'dark';
+    console.log(theme)
+    theme.palette.type = setting;
+    this.forceUpdate();
+  };
+
+  insertTimestamp = () => {
+    let notes = this.state.notes;
+    const replacementText = this.state.timer.elapsed
+      ? `[${moment(this.state.timer.elapsed).format('m:ss')}]: `
+      : `[START TIMER!]`;
+    if (notes.includes('/t')) {
+      notes = notes.replace('/t', replacementText);
+      this.setState({ notes });
+    }
+  };
 
   render() {
     return (
@@ -114,7 +130,6 @@ class App extends Component {
         />
         <div style={{ flexDirection: 'row', display: 'flex' }}>
           <SideBar show={this.state.showSidebar} />
-          {/* <div className="App" style={{ flexDirection: 'column', display: 'flex' }}> */}
           <Main
             applicantName={this.state.applicantName}
             interviewDate={this.state.interviewDate}
@@ -135,10 +150,9 @@ class App extends Component {
           notes={this.state.notes}
           show={this.state.interviewInProgress}
         />
-        {/* </div> */}
       </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default withTheme()(App);

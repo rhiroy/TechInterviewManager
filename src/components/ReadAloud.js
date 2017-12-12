@@ -8,7 +8,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   container: {
-    backgroundColor: theme.palette.secondary[500],
+    backgroundColor: theme.palette.primary[500],
     padding: 10,
     marginTop: 20,
     justifyContent: 'center',

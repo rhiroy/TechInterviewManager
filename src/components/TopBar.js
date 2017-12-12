@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Timer from 'material-ui-icons/Timer';
+import Switch from 'material-ui/Switch';
 import { withStyles } from 'material-ui/styles';
 import moment from 'moment';
 
@@ -22,29 +23,19 @@ const styles = {
 };
 
 const TopBar = ({
-  applicantName,
-  interviewDate,
-  toggleEvent,
-  classes,
-  startTimer,
-  elapsed,
+  applicantName, interviewDate, toggleEvent, classes, startTimer, elapsed, darkMode,
 }) => (
   <AppBar position="static" color="primary">
     <Toolbar>
-      <IconButton
-        className={classes.icon}
-        onClick={toggleEvent('showSidebar')}
-      >
+      <IconButton className={classes.icon} onClick={toggleEvent('showSidebar')}>
         <MenuIcon />
       </IconButton>
-      <Typography type="title">
-        {applicantName}
-      </Typography>
+      <Typography type="title">{applicantName}</Typography>
       <Typography type="subheading" className={classes.title}>
         {`${interviewDate.month() + 1}/${interviewDate.date()}/${interviewDate.year()}`}
       </Typography>
-
-      <Button raised color="accent" onClick={startTimer} >
+      <Switch checked={darkMode} onChange={toggleEvent('darkMode')} />
+      <Button raised color="accent" onClick={startTimer}>
         <Timer style={{ paddingRight: 10 }} />
         <Typography>{elapsed ? moment(elapsed).format('m:ss') : 'Start Timer'}</Typography>
       </Button>
@@ -52,12 +43,11 @@ const TopBar = ({
   </AppBar>
 );
 
-TopBar.propTypes = ({
+TopBar.propTypes = {
   toggleEvent: PropTypes.func.isRequired,
   applicantName: PropTypes.string.isRequired,
   interviewDate: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-});
+};
 
 export default withStyles(styles)(TopBar);
-

@@ -34,7 +34,7 @@ const styles = theme => ({
 const Response = ({ response, handleInput, classes }) => (
   <Paper className={classes.container}>
     <Avatar className={classes.avatar}>
-      <Icon color="primary">keyboard</Icon>
+      <Icon color="accent">keyboard</Icon>
     </Avatar>
     <div className={classes.textArea}>
       <TextField

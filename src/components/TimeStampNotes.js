@@ -40,6 +40,7 @@ const TimeStampNotes = ({
       <ExpansionPanelDetails>
         <Input
           value={notes}
+          placeholder="Enter your time-stamped notes here..."
           multiline
           className={classes.input}
           rowsMax={5}
