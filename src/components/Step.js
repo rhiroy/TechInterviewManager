@@ -62,7 +62,9 @@ const Step = ({
         </Button>
         <Button
           color="primary"
-          onClick={changeStep}
+          onClick={() => {
+            changeStep('next');
+          }}
           style={{ flex: 1 }}
           disabled={currentStep === lastStep}
         >

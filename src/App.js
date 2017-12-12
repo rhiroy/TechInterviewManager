@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import moment from 'moment';
 import blue from 'material-ui/colors/blue';
-import purple from 'material-ui/colors/purple';
+import deepPurple from 'material-ui/colors/deepPurple';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import Main from './components/Main';
@@ -12,7 +12,7 @@ import script from './data/script';
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: purple,
+    secondary: deepPurple,
   },
   status: {
     danger: 'orange',
@@ -43,11 +43,25 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.notes !== this.state.notes) {
+    const { notes, darkMode, currentStep } = this.state;
+    if (notes !== prevState.notes) {
       this.insertTimestamp();
     }
-    if (prevState.darkMode !== this.state.darkMode) {
+    if (darkMode !== prevState.darkMode) {
       this.toggleDarkMode();
+    }
+    if (currentStep !== prevState.currentStep) {
+      let progressStep;
+      if (currentStep < 5) {
+        progressStep = 0;
+      } else if (currentStep < 19) {
+        progressStep = 1;
+      } else if (currentStep < this.state.lastStep) {
+        progressStep = 2;
+      } else {
+        progressStep = 3;
+      }
+      this.setState({ progressStep })
     }
   }
 
@@ -77,15 +91,20 @@ class App extends Component {
     this.setState({ [prop]: !this.state[prop] });
   };
 
-  changeStep = (direction) => {
-    if (direction === 'end') {
-      this.setState({
-        currentStep: this.state.lastStep
-      });
-    } else {
-      const step = direction === 'back' ? -1 : 1;
-      this.setState({ currentStep: this.state.currentStep + step });
+  changeStep = step => {
+    let newStep;
+    if (step === 'end') {
+      newStep = this.state.lastStep;
+    } else if (step === 'back') {
+      newStep = this.state.currentStep - 1;
+    } else if (step === 'next') {
+      newStep = this.state.currentStep + 1;
+    } else if (typeof step === 'number') {
+      if (step > 0 && step < this.state.lastStep) {
+        newStep = step;
+      }
     }
+    this.setState({ currentStep: newStep });
   };
 
   tick = () => {
@@ -110,7 +129,7 @@ class App extends Component {
   //TODO: make this work
   toggleDarkMode = () => {
     const setting = this.state.darkMode ? 'light' : 'dark';
-    console.log(theme)
+    console.log(theme);
     theme.palette.type = setting;
     this.forceUpdate();
   };
@@ -129,7 +148,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <SideBar 
+        <SideBar
           show={this.state.showSidebar}
           toggleEvent={this.toggleEvent}
           progressStep={this.state.progressStep}

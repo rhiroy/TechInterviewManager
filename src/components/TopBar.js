@@ -63,7 +63,7 @@ TopBar.propTypes = {
   classes: PropTypes.object.isRequired,
   interviewInProgress: PropTypes.bool.isRequired,
   startTimer: PropTypes.func.isRequired,
-  elapsed: PropTypes.object,
+  elapsed: PropTypes.number,
   darkMode: PropTypes.bool,
 };
 

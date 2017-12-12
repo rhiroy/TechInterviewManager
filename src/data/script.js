@@ -25,7 +25,7 @@ const script = {
       text:
         'To get us started, can you please write your name and email in a comment in this codestitch.io pad? __LINK_HERE__',
     },
-    readToYourselfText: 'Paste the snippet into the tlk.io chat',
+    readToYourselfText: 'Fill in your codestitch URL. Then paste the snippet into the tlk.io chat',
   },
   4: {
     title: 'Connect to Zoom',
