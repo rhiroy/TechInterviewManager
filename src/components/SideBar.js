@@ -1,37 +1,59 @@
 import React from 'react';
+import Drawer from 'material-ui/Drawer';
+import List, { ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Progress from './Progress';
 
-const styles = {
-  container: {
-    width: 240,
-    height: 700,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    backgroundColor: 'red',
+const styles = theme => ({
+  list: {
+    width: 250,
   },
-  paper: {
-    padding: 10,
-  },
-};
+});
 
-const SideBar = ({ show }) => {
-  if (show) {
-    return (
-      <div style={styles.container}>
-        {"sidebar here.\nmaybe useless?\nnot sure if we'll keep this"}
+
+const SideBar = ({
+  show,
+  toggleEvent,
+  classes,
+  progressStep,
+  changeStep,
+}) => {
+  const list = ['Thing 1', 'Thing 2', 'Thing 3', 'Thing B'];
+  const sideList = list.map((item, index) => (
+    <div className={classes.list} key={index} >
+      <ListItem>{item}</ListItem>
+    </div>
+  ));
+  return (
+    <Drawer open={show} onRequestClose={toggleEvent('showSidebar')}>
+      <div
+        tabIndex={0}
+        role="button"
+        onClick={toggleEvent('showSidebar')}
+        onKeyDown={toggleEvent('showSidebar')}
+      >
+        <List>
+          {sideList}
+          <Divider />
+        </List>
+        <Progress progressStep={progressStep} changeStep={changeStep} />
       </div>
-    );
-  }
-  return null;
+    </Drawer>
+  );
 };
 
 SideBar.propTypes = {
   show: PropTypes.bool,
+  toggleEvent: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  progressStep: PropTypes.number.isRequired,
+  changeStep: PropTypes.func.isRequired,
 };
 
 SideBar.defaultProps = {
   show: false,
 };
 
-export default SideBar;
+export default withStyles(styles)(SideBar);

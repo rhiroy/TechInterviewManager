@@ -23,17 +23,30 @@ const styles = {
 };
 
 const TopBar = ({
-  applicantName, interviewDate, toggleEvent, classes, startTimer, elapsed, darkMode,
+  applicantName,
+  interviewInProgress,
+  interviewDate,
+  toggleEvent,
+  classes,
+  startTimer,
+  elapsed,
+  darkMode,
 }) => (
   <AppBar position="static" color="primary">
     <Toolbar>
       <IconButton className={classes.icon} onClick={toggleEvent('showSidebar')}>
         <MenuIcon />
       </IconButton>
-      <Typography type="title">{applicantName}</Typography>
-      <Typography type="subheading" className={classes.title}>
-        {`${interviewDate.month() + 1}/${interviewDate.date()}/${interviewDate.year()}`}
-      </Typography>
+      {interviewInProgress ? (
+        <div className={classes.title}>
+          <Typography type="title">{applicantName}</Typography>
+          <Typography type="subheading">
+            {`${interviewDate.month() + 1}/${interviewDate.date()}/${interviewDate.year()}`}
+          </Typography>
+        </div>
+      ) : (
+        <div className={classes.title} />
+      )}
       <Switch checked={darkMode} onChange={toggleEvent('darkMode')} />
       <Button raised color="accent" onClick={startTimer}>
         <Timer style={{ paddingRight: 10 }} />
@@ -48,6 +61,15 @@ TopBar.propTypes = {
   applicantName: PropTypes.string.isRequired,
   interviewDate: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  interviewInProgress: PropTypes.bool.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  elapsed: PropTypes.object,
+  darkMode: PropTypes.bool,
+};
+
+TopBar.defaultProps = {
+  elapsed: null,
+  darkMode: false,
 };
 
 export default withStyles(styles)(TopBar);
