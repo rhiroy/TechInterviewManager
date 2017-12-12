@@ -1,15 +1,34 @@
 import React from 'react';
-import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
-import Button from 'material-ui/Button';
+import Stepper, { Step, StepLabel } from 'material-ui/Stepper';
 import PropTypes from 'prop-types';
 
-const steps = ['Introduction', 'General Questions', 'Technical Prompt', 'Wrap Up'];
+const steps = [
+  'Setup & Prep',
+  'General Questions',
+  'Technical Prompt',
+  'Wrap Up',
+  'Evaluate',
+  'Finalize & Submit',
+];
 
-const Progress = ({ progressStep }) => (
+const styles = {
+  progress: {
+    cursor: 'pointer',
+  },
+};
+
+const Progress = ({ progressStep, progressStepMap, changeStep }) => (
   <Stepper activeStep={progressStep} orientation="vertical">
-    {steps.map(label => (
+    {steps.map((label, index) => (
       <Step key={label}>
-        <StepLabel>{label}</StepLabel>
+        <StepLabel
+          onClick={() => {
+            changeStep(progressStepMap[index]);
+          }}
+          style={styles.progress}
+        >
+          {label}
+        </StepLabel>
       </Step>
     ))}
   </Stepper>
@@ -18,6 +37,7 @@ const Progress = ({ progressStep }) => (
 Progress.propTypes = {
   progressStep: PropTypes.number.isRequired,
   changeStep: PropTypes.func.isRequired,
+  progressStepMap: PropTypes.object.isRequired,
 };
 
 export default Progress;

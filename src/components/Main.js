@@ -20,6 +20,7 @@ const Main = ({
   interviewDate,
   interviewInProgress,
   script,
+  loadScript,
   currentStep,
   lastStep,
   handleChange,
@@ -49,6 +50,7 @@ const Main = ({
         handleChange={handleChange}
         toggleEvent={toggleEvent}
         prompt={prompt}
+        loadScript={loadScript}
       />
     </div>
   );
@@ -66,6 +68,7 @@ Main.propTypes = {
   changeStep: PropTypes.func.isRequired,
   toggleEvent: PropTypes.func.isRequired,
   prompt: PropTypes.string.isRequired,
+  loadScript: PropTypes.func.isRequired,
 };
 
 export default withTheme()(Main);

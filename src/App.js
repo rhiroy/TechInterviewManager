@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import moment from 'moment';
-import blue from 'material-ui/colors/blue';
-import deepPurple from 'material-ui/colors/deepPurple';
+import { blue, deepPurple, grey, orange, indigo } from 'material-ui/colors';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import Main from './components/Main';
 import TimeStampNotes from './components/TimeStampNotes';
 import script from './data/script';
+import prompts from './data/prompts';
 
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: deepPurple,
+    secondary: orange,
   },
   status: {
     danger: 'orange',
@@ -26,10 +26,18 @@ class App extends Component {
     interviewDate: moment(),
     interviewInProgress: true,
     script: {},
-    currentStep: 1,
+    currentStep: 0,
     progressStep: 0,
-    lastStep: 1,
-    prompt: '',
+    //TODO: remove hard-coded values once loadScript() is working
+    progressStepMap: {
+      0: 0,
+      1: 4,
+      2: 18,
+      3: 21,
+      4: 27,
+      5: 35,
+    },
+    lastStep: 0,
     notes: '',
     timer: {
       start: null,
@@ -39,9 +47,9 @@ class App extends Component {
   };
 
   componentWillMount() {
-    this.setState({ script, lastStep: Object.keys(script).length });
+    this.setState({ script, lastStep: Object.keys(script).length - 1 });
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
     const { notes, darkMode, currentStep } = this.state;
     if (notes !== prevState.notes) {
@@ -51,17 +59,7 @@ class App extends Component {
       this.toggleDarkMode();
     }
     if (currentStep !== prevState.currentStep) {
-      let progressStep;
-      if (currentStep < 5) {
-        progressStep = 0;
-      } else if (currentStep < 19) {
-        progressStep = 1;
-      } else if (currentStep < this.state.lastStep) {
-        progressStep = 2;
-      } else {
-        progressStep = 3;
-      }
-      this.setState({ progressStep })
+      this.changeProgressStep();
     }
   }
 
@@ -100,11 +98,24 @@ class App extends Component {
     } else if (step === 'next') {
       newStep = this.state.currentStep + 1;
     } else if (typeof step === 'number') {
-      if (step > 0 && step < this.state.lastStep) {
+      if (step >= 0 && step < this.state.lastStep) {
         newStep = step;
       }
     }
     this.setState({ currentStep: newStep });
+  };
+
+  changeProgressStep = () => {
+    const { currentStep, progressStepMap, lastStep } = this.state;
+    let progressStep = parseInt(Object.keys(progressStepMap).find(key => {
+      return currentStep < progressStepMap[parseInt(key) + 1]
+    }));
+    if (currentStep === lastStep) {
+      progressStep = 5;
+    }
+    console.log('currentStep: ', currentStep);
+    console.log('progressStep:', progressStep, typeof progressStep)
+    this.setState({ progressStep });
   };
 
   tick = () => {
@@ -145,6 +156,17 @@ class App extends Component {
     }
   };
 
+  loadScript = prompt => {
+    const lastStep = Object.keys(script).length - 1;
+    let progressStepMap = {};
+    Object.keys(script).forEach(step => {
+      if (script[step].beginPhase) {
+        progressStepMap[script[step].beginPhase] = step;
+      }
+    });
+    this.setState({ script, progressStepMap, lastStep });
+  };
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -153,6 +175,7 @@ class App extends Component {
           toggleEvent={this.toggleEvent}
           progressStep={this.state.progressStep}
           changeStep={this.changeStep}
+          progressStepMap={this.state.progressStepMap}
         />
         <TopBar
           toggleEvent={this.toggleEvent}
@@ -170,13 +193,13 @@ class App extends Component {
             interviewDate={this.state.interviewDate}
             interviewInProgress={this.state.interviewInProgress}
             script={this.state.script}
+            loadScript={this.loadScript}
             currentStep={this.state.currentStep}
             lastStep={this.state.lastStep}
             handleChange={this.handleChange}
             handleInput={this.handleInput}
             changeStep={this.changeStep}
             toggleEvent={this.toggleEvent}
-            prompt={this.state.prompt}
             notes={this.state.notes}
           />
         </div>

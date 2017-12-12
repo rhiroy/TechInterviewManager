@@ -54,7 +54,7 @@ const Step = ({
           onClick={() => {
             changeStep('back');
           }}
-          disabled={currentStep === 1}
+          disabled={currentStep === 0}
           style={{ flex: 1 }}
         >
           <Icon color="accent">navigate_before</Icon>
