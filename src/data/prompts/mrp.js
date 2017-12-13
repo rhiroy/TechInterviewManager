@@ -1,5 +1,5 @@
-const bookLibrary = {
-  title: 'Book Library',
+const mrp = {
+  title: 'MRP',
   script: {
     0: {
       beginPhase: 0,
@@ -780,4 +780,4 @@ const bookLibrary = {
   },
 };
 
-export default bookLibrary;
+export default mrp;

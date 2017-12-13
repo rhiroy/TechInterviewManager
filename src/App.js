@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import moment from 'moment';
-import { blue, deepPurple, grey, orange, indigo } from 'material-ui/colors';
+import { blue, orange } from 'material-ui/colors';
 import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import Main from './components/Main';
 import TimeStampNotes from './components/TimeStampNotes';
-import script from './data/script';
 import prompts from './data/prompts';
 
 const theme = createMuiTheme({
@@ -24,19 +23,12 @@ class App extends Component {
     showSidebar: false,
     applicantName: '',
     interviewDate: moment(),
-    interviewInProgress: true,
+    interviewInProgress: false,
     script: {},
+    prompt: '',
     currentStep: 0,
     progressStep: 0,
-    //TODO: remove hard-coded values once loadScript() is working
-    progressStepMap: {
-      0: 0,
-      1: 4,
-      2: 18,
-      3: 21,
-      4: 27,
-      5: 35,
-    },
+    progressStepMap: {},
     lastStep: 0,
     notes: '',
     timer: {
@@ -46,12 +38,8 @@ class App extends Component {
     darkMode: false,
   };
 
-  componentWillMount() {
-    this.setState({ script, lastStep: Object.keys(script).length - 1 });
-  }
-  
   componentDidUpdate(prevProps, prevState) {
-    const { notes, darkMode, currentStep } = this.state;
+    const { notes, darkMode, currentStep, prompt } = this.state;
     if (notes !== prevState.notes) {
       this.insertTimestamp();
     }
@@ -60,6 +48,9 @@ class App extends Component {
     }
     if (currentStep !== prevState.currentStep) {
       this.changeProgressStep();
+    }
+    if (prompt !== prevState.prompt) {
+      this.loadScript();
     }
   }
 
@@ -98,7 +89,7 @@ class App extends Component {
     } else if (step === 'next') {
       newStep = this.state.currentStep + 1;
     } else if (typeof step === 'number') {
-      if (step >= 0 && step < this.state.lastStep) {
+      if (step >= 0 && step <= this.state.lastStep) {
         newStep = step;
       }
     }
@@ -108,13 +99,11 @@ class App extends Component {
   changeProgressStep = () => {
     const { currentStep, progressStepMap, lastStep } = this.state;
     let progressStep = parseInt(Object.keys(progressStepMap).find(key => {
-      return currentStep < progressStepMap[parseInt(key) + 1]
-    }));
+      return currentStep < progressStepMap[parseInt(key, 10) + 1]
+    }), 10);
     if (currentStep === lastStep) {
       progressStep = 5;
     }
-    console.log('currentStep: ', currentStep);
-    console.log('progressStep:', progressStep, typeof progressStep)
     this.setState({ progressStep });
   };
 
@@ -156,7 +145,13 @@ class App extends Component {
     }
   };
 
-  loadScript = prompt => {
+  loadScript = () => {
+    const { prompt } = this.state;
+    const index = Object.keys(prompts).find(key => {
+      return prompts[key].title === prompt;
+    })
+    const script = prompts[index].script;
+
     const lastStep = Object.keys(script).length - 1;
     let progressStepMap = {};
     Object.keys(script).forEach(step => {
@@ -192,6 +187,7 @@ class App extends Component {
             applicantName={this.state.applicantName}
             interviewDate={this.state.interviewDate}
             interviewInProgress={this.state.interviewInProgress}
+            prompt={this.state.prompt}
             script={this.state.script}
             loadScript={this.loadScript}
             currentStep={this.state.currentStep}

@@ -43,7 +43,8 @@ const Step = ({
 
   return (
     <Paper style={styles.container}>
-      {<Typography type="headline">{step.title}</Typography>}
+      <Typography type="headline">{step.title}</Typography>
+      <Typography type="subheading">{step.subtitle}</Typography>
       {readAloudText}
       {clipboardText}
       {response}

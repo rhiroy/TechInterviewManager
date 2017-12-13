@@ -9,6 +9,7 @@ import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
 import Typography from 'material-ui/Typography';
 import InterviewDate from './InterviewDate';
+import prompts from '../data/prompts.js';
 
 const styles = {
   container: {
@@ -64,8 +65,9 @@ const Start = ({
             onChange={handleChange('prompt')}
             input={<Input name="prompt" id="prompt" />}
           >
-            <MenuItem value="mrp">MRP</MenuItem>
-            <MenuItem value="book library">Book Library</MenuItem>
+            {prompts.map(prompt => (
+              <MenuItem value={prompt.title} key={prompt.title}>{prompt.title}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>
