@@ -609,14 +609,14 @@ const bookLibrary = {
       response: {
         type: 'text',
         key: 'FINAL_CODE',
-        multi: 'true',
+        multi: true,
         question: 'Paste final code for the problem:',
         required: true,
         response: '',
       },
       readToYourselfText: `1. End your Zoom call.
 
-  2. Click “Make pad private” on the coder pad you’re using to ensure candidates cannot revisit and/or share the link. Your recording is automatically stored at zoom.us/recording and will begin processing once you’ve ended the call.`,
+2. Click “Make pad private” on the coder pad you’re using to ensure candidates cannot revisit and/or share the link. Your recording is automatically stored at zoom.us/recording and will begin processing once you’ve ended the call.`,
     },
     41: {
       title: 'Evaluate',
@@ -765,11 +765,11 @@ const bookLibrary = {
       },
       readToYourselfText: `Recommendation Options:
 
-  1. Accept
-  2. 2 week study
-  3. 4 week study
-  4. 6 week study
-  5. Hard Reject
+* Accept
+* 2 week study
+* 4 week study
+* 6 week study
+* Hard Reject
 
   See the decision system document in the sidebar for further guidance`,
     },

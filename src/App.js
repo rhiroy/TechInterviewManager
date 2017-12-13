@@ -134,6 +134,7 @@ class App extends Component {
     this.forceUpdate();
   };
 
+  // checks for a /t and replaces it with the current timer value
   insertTimestamp = () => {
     let notes = this.state.notes;
     const replacementText = this.state.timer.elapsed
@@ -145,6 +146,8 @@ class App extends Component {
     }
   };
 
+  // loads script based on technical prompt selection on start page
+  // also sets the progressStepMap and lastStep values
   loadScript = () => {
     const { prompt } = this.state;
     const index = Object.keys(prompts).find(key => {
@@ -153,10 +156,10 @@ class App extends Component {
     const script = prompts[index].script;
 
     const lastStep = Object.keys(script).length - 1;
-    let progressStepMap = {};
-    Object.keys(script).forEach(step => {
-      if (script[step].beginPhase) {
-        progressStepMap[script[step].beginPhase] = step;
+    let progressStepMap = { 0: 0 };
+    Object.keys(script).forEach(key => {
+      if (script[key].beginPhase) {
+        progressStepMap[script[key].beginPhase] = parseInt(key, 10);
       }
     });
     this.setState({ script, progressStepMap, lastStep });
