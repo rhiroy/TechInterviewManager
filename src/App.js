@@ -8,8 +8,10 @@ import Main from './components/Main';
 import TimeStampNotes from './components/TimeStampNotes';
 import prompts from './data/prompts';
 
+let type = 'light';
 const theme = createMuiTheme({
   palette: {
+    type,
     primary: blue,
     secondary: orange,
   },
@@ -39,7 +41,9 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { notes, darkMode, currentStep, prompt } = this.state;
+    const {
+      notes, darkMode, currentStep, prompt,
+    } = this.state;
     if (notes !== prevState.notes) {
       this.insertTimestamp();
     }
@@ -54,14 +58,13 @@ class App extends Component {
     }
   }
 
-  handleChange = prop => {
-    return event => {
-      const value = event.target ? event.target.value : event;
-      this.setState({ [prop]: value });
-    };
+  handleChange = prop => (event) => {
+    const value = event.target ? event.target.value : event;
+    this.setState({ [prop]: value });
   };
 
-  handleInput = event => {
+
+  handleInput = (event) => {
     this.setState({
       script: {
         ...this.state.script,
@@ -80,7 +83,7 @@ class App extends Component {
     this.setState({ [prop]: !this.state[prop] });
   };
 
-  changeStep = step => {
+  changeStep = (step) => {
     let newStep;
     if (step === 'end') {
       newStep = this.state.lastStep;
@@ -98,9 +101,8 @@ class App extends Component {
 
   changeProgressStep = () => {
     const { currentStep, progressStepMap, lastStep } = this.state;
-    let progressStep = parseInt(Object.keys(progressStepMap).find(key => {
-      return currentStep < progressStepMap[parseInt(key, 10) + 1]
-    }), 10);
+    let progressStep = parseInt(Object.keys(progressStepMap).find(key =>
+      currentStep < progressStepMap[parseInt(key, 10) + 1]), 10);
     if (currentStep === lastStep) {
       progressStep = 5;
     }
@@ -126,20 +128,18 @@ class App extends Component {
     this.timer = setInterval(this.tick, 500);
   };
 
-  //TODO: make this work
+  // TODO: make this work
   toggleDarkMode = () => {
-    const setting = this.state.darkMode ? 'light' : 'dark';
-    console.log(theme);
-    theme.palette.type = setting;
+    type = this.state.darkMode ? 'light' : 'dark';
     this.forceUpdate();
   };
 
   // checks for a /t and replaces it with the current timer value
   insertTimestamp = () => {
-    let notes = this.state.notes;
+    let { notes } = this.state;
     const replacementText = this.state.timer.elapsed
       ? `[${moment(this.state.timer.elapsed).format('m:ss')}]: `
-      : `[START TIMER!]`;
+      : '[START TIMER!]';
     if (notes.includes('/t')) {
       notes = notes.replace('/t', replacementText);
       this.setState({ notes });
@@ -150,14 +150,12 @@ class App extends Component {
   // also sets the progressStepMap and lastStep values
   loadScript = () => {
     const { prompt } = this.state;
-    const index = Object.keys(prompts).find(key => {
-      return prompts[key].title === prompt;
-    })
-    const script = prompts[index].script;
+    const index = Object.keys(prompts).find(key => prompts[key].title === prompt);
+    const { script } = prompts[index];
 
     const lastStep = Object.keys(script).length - 1;
-    let progressStepMap = { 0: 0 };
-    Object.keys(script).forEach(key => {
+    const progressStepMap = { 0: 0 };
+    Object.keys(script).forEach((key) => {
       if (script[key].beginPhase) {
         progressStepMap[script[key].beginPhase] = parseInt(key, 10);
       }
@@ -174,6 +172,7 @@ class App extends Component {
           progressStep={this.state.progressStep}
           changeStep={this.changeStep}
           progressStepMap={this.state.progressStepMap}
+          interviewInProgress={this.state.interviewInProgress}
         />
         <TopBar
           toggleEvent={this.toggleEvent}

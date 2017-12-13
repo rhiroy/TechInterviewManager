@@ -7,17 +7,17 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Progress from './Progress';
 
-const styles = theme => ({
+const styles = () => ({
   list: {
     width: 250,
   },
 });
 
 const SideBar = ({
-  show, toggleEvent, classes, progressStep, progressStepMap, changeStep,
+  show, toggleEvent, classes, progressStep, progressStepMap, changeStep, interviewInProgress,
 }) => {
   const list = ['Helpful Resource #1', 'Helpful Resource #2', 'Helpful Resouce #3'];
-  const sideList = list.map((item, index) => (
+  const sideList = list.map(item => (
     <div className={classes.list} key={item}>
       <ListItem>
         <Typography>
@@ -35,11 +35,13 @@ const SideBar = ({
           {sideList}
           <Divider />
         </List>
-        <Progress
-          progressStep={progressStep}
-          progressStepMap={progressStepMap}
-          changeStep={changeStep}
-        />
+        {interviewInProgress &&
+          <Progress
+            progressStep={progressStep}
+            progressStepMap={progressStepMap}
+            changeStep={changeStep}
+          />
+        }
       </div>
     </Drawer>
   );
@@ -52,6 +54,7 @@ SideBar.propTypes = {
   progressStep: PropTypes.number.isRequired,
   changeStep: PropTypes.func.isRequired,
   progressStepMap: PropTypes.object.isRequired,
+  interviewInProgress: PropTypes.bool.isRequired,
 };
 
 SideBar.defaultProps = {

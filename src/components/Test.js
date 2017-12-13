@@ -4,18 +4,18 @@ class Test extends Component {
   state = {
     name: 'pete',
     age: 12,
-  }
+  };
 
-  variable = 'test'
+  variable = 'test';
 
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div style={{ backgroundColor: 'red' }}>
         {this.state.name}
         {this.variable}
       </div>
     );
   }
-};
+}
 
 export default Test;
